@@ -1,6 +1,8 @@
 // Include Express Module
 const express = require('express');
 
+const PORT = process.env.PORT || 3001;
+
 // Instantiate the Server 
 const app = express();  // Later chain on methods to the Express.js Server
 
@@ -62,6 +64,6 @@ app.get('/api/animals', (req, res) => { // req (request)
 }); // Navigate to http://localhost:3001/api/animals in the browser to view
 
 // Chain the Listen Method onto the Server to make Server Listen
-app.listen(3001, () => { // Use localhost Port 3001
-    console.log('API server now on port 3001!');
+app.listen(PORT, () => { // Use localhost Port 3001
+    console.log(`API server now on port ${PORT}!`);
 });
