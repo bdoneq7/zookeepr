@@ -56,7 +56,7 @@ function findById(id, animalsArray) {
 }
 
 
-// Add Single Route that the Front End can request data from
+// Add Single API Endpoint Route that the Front End can request data from
 // get method requires 2 arguments 
 // 1st argument is the string that describes the route the client will have to fetch from
 // 2nd argument is a callback function that will execute every time that route is
@@ -69,7 +69,7 @@ app.get('/api/animals', (req, res) => { // req (request)
     res.json(results); // json method from res (response) parameter to send animal json api to our client
 }); // Navigate to https://powerful-wildwood-91211.herokuapp.com/api/animals in the browser to view
 
-// Mulitple Route Function
+// Mulitple API Endpoint Route Function
 app.get('/api/animals/:id', (req, res) => {
     const result = findById(req.params.id, animals); // Single Parameter
     if (result) {
