@@ -22,6 +22,7 @@ const printResults = resultArr => {
   $displayArea.innerHTML = animalHTML.join('');
 };
 
+// object formData is passed to Objct.entries method to create query parameters
 const getAnimals = (formData = {}) => {
   let queryUrl = '/api/animals?';
 
@@ -31,8 +32,25 @@ const getAnimals = (formData = {}) => {
 
   console.log(queryUrl);
 
+  // GET fetch request to server for animalData
+  fetch(queryUrl)
+  .then(response => {
+    // if fetch response was false
+    if (!response.ok) {
+      return alert('Error: ' + response.statusText); // use modals or "toast" dialog box instead of alerts
+    }
+    // if fetch response was true - parse response into readable json format
+    return response.json();
+  })
+  // Send the animalData Array to generate Cards for each animal and prints them on the page
+  .then(animalData => {
+    console.log(animalData);
+    printResults(animalData);
+  });
+
 };
 
+// Gathes all of the form input data and packages it as an object to send to getAnimals Function as the formData argument
 const handleGetAnimalsSubmit = event => {
   event.preventDefault();
   const dietRadioHTML = $animalForm.querySelectorAll('[name="diet"]');

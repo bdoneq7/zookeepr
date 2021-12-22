@@ -15,6 +15,9 @@ app.use(express.urlencoded({ extended: true })); // takes incoming POST data and
 // parse incoming JSON data
 app.use(express.json()); 
 
+// Middleware that instructs the server to make static files available in the public folder
+app.use(express.static('public')); // public folder is where files are stored
+
 const {animals} = require('./data/animals');
 
 // This function will take in req.query as an argument and filter through
@@ -140,6 +143,25 @@ function validateAnimal(animal) {
     return true;
 }
 
+// Send contents of index file to client browser / is the root route of the server
+app.get('/', (req, res) => { // root folder endpoint
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+// Send contents of animals html file to client browser
+app.get('/animals', (req, res) => { // animals folder endpoint
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+// Send contents of zookeepers html file to client browser
+app.get('/zookeeper', (req, res) => { // zookeepers folder endpoint
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+});
+
+// Wildcard Route for routes that don't exist - send index content
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+})
 
 // Chain the Listen Method onto the Server to make Server Listen
 app.listen(PORT, () => { // Determine localhost Port 
